@@ -1,0 +1,28 @@
+<quill-editor [modules]="modules" (onEditorCreated)="editorCreated($event)" (onContentChanged)="logChanged($event)" (onSelectionChanged)="selectionUpdate($event)">
+    <div quill-editor-toolbar>
+        <button class="ql-bold"></button>
+        <button class="ql-italic"></button>
+        <button class="ql-underline"></button>
+        <button class="ql-strike"></button>
+        <button class="ql-code-block"></button>
+        <button class="ql-blockquote"></button>
+        <select class="ql-size">
+            <option value="small"></option>
+            <option selected></option>
+            <option value="large"></option>
+            <option value="huge"></option>
+        </select>
+        <button class="ql-script" value="sub"></button>
+        <button class="ql-script" value="super"></button>
+        <button class="ql-indent" value="-1"></button>
+        <button class="ql-indent" value="+1"></button>
+        <button class="ql-link"></button>
+        <button class="ql-image"></button>
+        <button class="ql-script" value="super"></button>
+        <button class="ql-comment"></button>
+        <button class="ql-fullscreen"></button>
+        <button class="ql-author"></button>
+    </div>
+</quill-editor>
+<div class="comments">
+</div>

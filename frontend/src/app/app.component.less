@@ -1,0 +1,117 @@
+app-editor{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+}
+
+quill-editor {
+    display: inline-block;
+    width: 100vw;
+    height: 100vh;
+}
+quill-editor:fullscreen{
+    background-color: #fcfcfc !important;
+}
+.ql-editor table {
+    table-layout: fixed;
+    width: 100%;
+}
+.ql-editor table {
+  border-collapse: collapse;
+}
+.ql-editor:focus {
+  border: 1px solid #80bdff !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+// app-comments{
+//   display: inline-block;
+//   width: 25vw;
+//   height: 100vh;
+//   overflow: scroll;
+// }
+  
+  
+ul{
+  list-style: none;
+  padding: 0;
+}
+li:first-child{
+  font-weight: bold;
+}
+
+
+/* Set dropdown font-families */
+
+[quill-editor-toolbar] .ql-font span[data-label="Aref Ruqaa"]::before {
+  font-family: "Aref Ruqaa";
+}
+
+[quill-editor-toolbar] .ql-font span[data-label="Mirza"]::before {
+  font-family: "Mirza";
+}
+
+[quill-editor-toolbar] .ql-font span[data-label="Roboto"]::before {
+  font-family: "Roboto";
+}
+
+/* Set content font-families */
+
+.ql-font-mirza {
+  font-family: "Mirza";
+}
+
+.ql-font-aref {
+  font-family: "Aref Ruqaa";
+}
+
+.ql-font-roboto {
+  font-family: "Roboto";
+}
+
+pre {
+  background-color: #fcfcfc;
+  padding: 5px;
+  border: 1px solid #b2b2b2;
+  color: #363030;
+}
+  
+.comments {
+  width: 20vw;
+  height: 100vh;
+  background-color: #f6f078;
+}
+.padd{
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 5px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+
+.resolve{
+ color: blue;
+ background-color: white;
+ padding: 2px;
+ border: 1px solid black;
+ border-radius: 3px;
+ height: 25px;
+}
+.resolve:hover{
+ background-color: blue;
+ color: white;
+ border: 1px solid blue;
+}
+
+.padd:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.commented{
+  background-color:  #fed766;
+}
