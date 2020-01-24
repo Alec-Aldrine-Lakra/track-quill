@@ -1,24 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import {QuillModule } from 'ngx-quill';
+import { RealtimeComponent } from './realtime/realtime.component';
 import { AppComponent } from './app.component';
-import { EditorComponent } from './editor/editor.component';
-import {QuillModule} from 'ngx-quill';
-import { CommentsComponent } from './comments/comments.component';
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EditorComponent,
-    CommentsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    QuillModule.forRoot()
-  ],
+  declarations: [AppComponent, RealtimeComponent],
+  imports: [BrowserModule, FormsModule, QuillModule.forRoot()],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

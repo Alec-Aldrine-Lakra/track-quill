@@ -1,0 +1,69 @@
+<div id="eddu">
+  <quill-editor  [modules]="modules" (onEditorCreated)="editorCreated($event)" (onContentChanged)="logChanged($event)" (onSelectionChanged)="selectionUpdate($event)">
+    <div quill-editor-toolbar>
+         <span>
+            <button class="ql-comment"></button>
+            <button class="ql-fullscreen"></button>
+            <!-- <button class="ql-author" [class.suggestion]="trackChanges"></button> -->
+         </span>
+        <span class="ql-formats">
+            <select class="ql-font">
+              <option selected>Sans Serif</option>
+              <option value="arial">Arial</option>
+              <option value="verdana">Verdana</option>
+              <option value="times">Times New</option>
+              <option value="roboto">Roboto</option>
+              <option value="lato">Lato</option>
+              <option value="ubuntu">Ubuntu</option>
+            </select>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <button class="ql-strike"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-blockquote"></button>
+            <button class="ql-code-block"></button>
+            <button class="ql-link"></button>
+            <button class="ql-image"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-header" value="1"></button>
+            <button class="ql-header" value="2"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+            <button class="ql-indent" value="-1"></button>
+            <button class="ql-indent" value="+1"></button>
+          </span>
+          <span class="ql-formats">
+            <select class="ql-align"></select>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-script" value="sub"></button>
+            <button class="ql-script" value="super"></button>
+          </span>
+          <span class="ql-formats">
+            <select class="ql-size">
+                <option value="small"></option>
+                <option selected></option>
+                <option value="large"></option>
+                <option value="huge"></option>
+            </select>
+          </span>
+          <button class="ql-image"></button>
+          <span>
+             <input type="checkbox" [(ngModel)]="trackChanges"><span style="font-size: 0.8em; font-weight: 700;">Track Changes</span>
+          </span>
+    </div>
+  </quill-editor>
+</div>
+<div class="popup-wrapper ql-comment" [ngStyle]="{ 'top.px' : popuptop }" [class.popupvisible]="popupvisible">
+  <span class="icon-comment">&#9997;</span>  
+</div>
+
+<div class="comments">
+</div>
