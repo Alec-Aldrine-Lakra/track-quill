@@ -39,6 +39,14 @@ const commentSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    insid:{
+      type: String,
+      required: true
+    },
+    resolved: {
+      type: Boolean,
+      default: false
+    },
     created_on:{
       type: Date, 
       default: new Date()
