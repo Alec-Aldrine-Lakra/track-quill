@@ -28,11 +28,13 @@
     "quill": "^2.0.0-dev.3",
     "quill-better-table": "^1.2.8",
     "quill-cursors": "^2.2.2",
+    "quill-delta-to-html": "^0.11.0",
     "quill-image-resize": "^3.0.9",
     "quill-table-ui": "^1.0.6",
     "reconnecting-websocket": "^4.2.0",
     "rich-text": "^4.0.0",
     "rxjs": "~6.5.3",
+    "rxjs-compat": "^6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },

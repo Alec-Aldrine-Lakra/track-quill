@@ -1,16 +1,15 @@
+import { ChangeDetectionStrategy, ViewChild, Component, OnInit, OnDestroy } from '@angular/core';
+
 import { QuillEditorComponent } from 'ngx-quill';
 import ReconnectingWebSocket from 'reconnecting-websocket';
-import { ChangeDetectionStrategy, ViewChild, Component, OnInit, OnDestroy } from '@angular/core';
 import * as QuillNamespace from 'quill';
 const Quill: any = QuillNamespace;
-const jwtDecode = require('jwt-decode');
-import moment from 'moment-timezone';
-import chance from 'chance';
 const Delta = Quill.import('delta');
 import * as QuillTableUI from 'quill-table-ui';
 import {InsTrack, DelTrack, Comment} from './track-comments';
 import QuillCursors from 'quill-cursors';
 import ImageResize from 'quill-image-resize';
+import {VerhistoryService} from '../verhistory.service';
 
 const Font = Quill.import('formats/font');
 Font.whitelist = ['arial', 'times', 'verdana', 'roboto', 'lato', 'ubuntu'];
@@ -26,13 +25,16 @@ Quill.register(InsTrack, true);
 Quill.register(DelTrack, true);
 Quill.register(Comment, true);
 
+const jwtDecode = require('jwt-decode');
+import moment from 'moment-timezone';
+import chance from 'chance';
+
 @Component({
   selector: 'app-realtime',
   templateUrl: './realtime.component.html',
   styleUrls: ['./realtime.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 
 export class RealtimeComponent  implements OnInit, OnDestroy {
 
@@ -67,8 +69,9 @@ export class RealtimeComponent  implements OnInit, OnDestroy {
   public popuptop: number;
   public popupvisible = true;
   public quilltoolbar: any;
+
   // public auth: AuthService
-  constructor() {
+  constructor(private ver: VerhistoryService) {
     this.trackChanges = false;
     window.onbeforeunload = () => {
       sessionStorage.clear();
@@ -104,7 +107,7 @@ export class RealtimeComponent  implements OnInit, OnDestroy {
     this.name = decoder.user.name;
     this.id = decoder.user.id;
     this.color = RealtimeComponent.palette[Math.round(Math.random() * (RealtimeComponent.palette.length - 1))];
-    this.roomid = 'richtext605';
+    this.roomid = 'richtext99';
     this.range = null;
     this.doc = this.connection.get('examples', this.roomid); // getting document with id 'richtext30' from 'examples' collection
     this.socket2.send(JSON.stringify({roomid: this.roomid, uid: this.id, message: 'addUser'}));
@@ -119,22 +122,22 @@ export class RealtimeComponent  implements OnInit, OnDestroy {
       },
       table: true,
       tableUI: true,
-      keyboard :{
-        bindings: {
-          backspace: {
-            key : 8,
-            handler(range,context) {
+    //   keyboard :{
+    //     bindings: {
+    //       backspace: {
+    //         key : 8,
+    //         handler(range,context) {
 
-            }
-          },
-          delete : {
-            key: 46,
-            handler(range,context) {
+    //         }
+    //       },
+    //       delete : {
+    //         key: 46,
+    //         handler(range,context) {
 
-            }
-          }
-        }
-      }
+    //         }
+    //       }
+    //     }
+    //   }
     };
   }
 
@@ -148,41 +151,41 @@ export class RealtimeComponent  implements OnInit, OnDestroy {
     this.fullscreenbutton.removeEventListener('click', this.fullScreen);
   }
 
-  deleteHandler(op: any) : boolean{
+  // deleteHandler(op: any) : boolean{
      
-    let range = this.editor.quillEditor.getSelection();
-    const format = this.editor.quillEditor.getFormat(range);
-    if (format.instrack && (format.instrack.uid == this.id)) {
-       return true;
-    }
-    console.log('yeeyeyeyeeyeye');
-    let delta = new Delta();
-    const authorFormat = {cid: this.chance.guid(), uid: this.id, name: this.name, cls: `user-${this.colorid}`};
-    if(op === 'backspace') {
-      if(range.length === 0) //collapsed
-      {
-        console.log(range);
-        // delta = this.editor.quillEditor.formatText(range.index -1 , 1,'deltrack', authorFormat, 'user');
-        this.editor.quillEditor.setSelection(range.index-1);
-      } else {
-        console.log(range.index-1, range.index.length);
-        // delta = this.editor.quillEditor.formatText(range.index-1, range.length, 'deltrack', authorFormat, 'user');
-        this.editor.quillEditor.setSelection(range.index-1);
-      }
-    } else { //delete 
-      if(range.length === 0) //collapsed
-      {
-        // this.editor.quillEditor.setSelection(range.index, 1);
-        delta = this.editor.quillEditor.formatText(range.index, 1, 'deltrack', authorFormat, 'user');
-        this.editor.quillEditor.setSelection(range.index+1);
-      } else {
-        delta = this.editor.quillEditor.formatText(range.index, range.length, 'deltrack', authorFormat, 'user');
-        this.editor.quillEditor.setSelection(range.index + range.length);
-      }
-    }
-    this.doc.submitOp(delta, {source: 'quill'}); 
-    return false;
-  }
+  //   let range = this.editor.quillEditor.getSelection();
+  //   const format = this.editor.quillEditor.getFormat(range);
+  //   if (format.instrack && (format.instrack.uid == this.id)) {
+  //      return true;
+  //   }
+  //   console.log('yeeyeyeyeeyeye');
+  //   let delta = new Delta();
+  //   const authorFormat = {cid: this.chance.guid(), uid: this.id, name: this.name, cls: `user-${this.colorid}`};
+  //   if(op === 'backspace') {
+  //     if(range.length === 0) //collapsed
+  //     {
+  //       console.log(range);
+  //       // delta = this.editor.quillEditor.formatText(range.index -1 , 1,'deltrack', authorFormat, 'user');
+  //       this.editor.quillEditor.setSelection(range.index-1);
+  //     } else {
+  //       console.log(range.index-1, range.index.length);
+  //       // delta = this.editor.quillEditor.formatText(range.index-1, range.length, 'deltrack', authorFormat, 'user');
+  //       this.editor.quillEditor.setSelection(range.index-1);
+  //     }
+  //   } else { //delete 
+  //     if(range.length === 0) //collapsed
+  //     {
+  //       // this.editor.quillEditor.setSelection(range.index, 1);
+  //       delta = this.editor.quillEditor.formatText(range.index, 1, 'deltrack', authorFormat, 'user');
+  //       this.editor.quillEditor.setSelection(range.index+1);
+  //     } else {
+  //       delta = this.editor.quillEditor.formatText(range.index, range.length, 'deltrack', authorFormat, 'user');
+  //       this.editor.quillEditor.setSelection(range.index + range.length);
+  //     }
+  //   }
+  //   this.doc.submitOp(delta, {source: 'quill'}); 
+  //   return false;
+  // }
 
   editorCreated($event) { // fired when editor is create
 
@@ -242,6 +245,14 @@ export class RealtimeComponent  implements OnInit, OnDestroy {
     this.fullscreenbutton = document.querySelector('.ql-fullscreen'); // full screen event handler
     this.fullScreen = this.fullScreen.bind(this);
     this.fullscreenbutton.addEventListener('click', this.fullScreen);
+
+    document.querySelector('#saveVersion').addEventListener('click',()=>{ //Save versions
+       this.ver.insertVersion(this.roomid).subscribe((val) => {
+            alert('Document Saved');
+       },(err) => {
+           alert(`Error in saving : ${err}`);
+       });
+    })
 
     this.doc.subscribe((err) => { // Get initial value of document and subscribe to changes
         if (err) {
@@ -319,35 +330,35 @@ export class RealtimeComponent  implements OnInit, OnDestroy {
       return;
     }
     // console.log($event.delta);
-    let flag=0, length=0, range = this.editor.quillEditor.getSelection();
-    const authorFormat: any = {cid: this.chance.guid(), uid: this.id, name: this.name, cls: `user-${this.colorid}`}; // bug is here how to apply Attributor class to delta   
-    if(this.trackChanges) {
-      const ops = [];
-      for(let i=0; i< $event.delta.ops.length; i++) {
-        let op = $event.delta.ops[i];
-        if(op.delete) {
-          return;
-        }
-        if(op.insert) {
-          op.attributes = op.attributes || {};
-          if(Object.keys(op.attributes).length === 0) {
-            flag=1;
-          } else if(op.attributes.instrack && parseInt(op.attributes.instrack.uid,10) !==  parseInt(this.id,10)) {
-            flag=1;
-          }
-          length = op.insert.length;
-        }
-      }
-    }
+    // let flag=0, length=0, range = this.editor.quillEditor.getSelection();
+    // const authorFormat: any = {cid: this.chance.guid(), uid: this.id, name: this.name, cls: `user-${this.colorid}`}; // bug is here how to apply Attributor class to delta   
+    // if(this.trackChanges) {
+    //   const ops = [];
+    //   for(let i=0; i< $event.delta.ops.length; i++) {
+    //     let op = $event.delta.ops[i];
+    //     if(op.delete) {
+    //       return;
+    //     }
+    //     if(op.insert) {
+    //       op.attributes = op.attributes || {};
+    //       if(Object.keys(op.attributes).length === 0) {
+    //         flag=1;
+    //       } else if(op.attributes.instrack && parseInt(op.attributes.instrack.uid,10) !==  parseInt(this.id,10)) {
+    //         flag=1;
+    //       }
+    //       length = op.insert.length;
+    //     }
+    //   }
+    // }
     
     this.doc.submitOp($event.delta, {source: 'quill'}); // Submit whatever was created
     
-    if(flag === 1){
-      let offset = range.index-1;
-      offset = offset<0 ? 0: offset;
-      let d = this.editor.quillEditor.formatText(offset, length, 'instrack', authorFormat, 'user'); //send the formatted delta
-      this.doc.submitOp(d, {source: 'quill'});
-    }
+    // if(flag === 1){
+    //   let offset = range.index-1;
+    //   offset = offset<0 ? 0: offset;
+    //   let d = this.editor.quillEditor.formatText(offset, length, 'instrack', authorFormat, 'user'); //send the formatted delta
+    //   this.doc.submitOp(d, {source: 'quill'});
+    // }
     // ++this.pageR;
     // if ($event.delta.ops[0].delete && this.pageR === 1) {
     //     this.editor.quillEditor.updateContents(this.doc.data);

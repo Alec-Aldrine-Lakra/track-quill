@@ -1,12 +1,20 @@
 @import "~quill/dist/quill.snow.css";
 @import 'https://unpkg.com/quill-better-table@1.2.8/dist/quill-better-table.css';
-
+*{
+  box-sizing: border-box;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
 app-root{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
 }
-
+app-version{
+  width: 100%;
+}
 [class^="ql-comment-"] {
     background-color: #bfc0bd;
 }
@@ -190,6 +198,17 @@ pre {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-around;
+}
+
+.padding{
+  padding: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .resolve{
