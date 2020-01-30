@@ -21,6 +21,8 @@
     "@angular/router": "~9.0.0-rc.9",
     "@teamwork/sharedb": "^3.1.1",
     "chance": "^1.1.4",
+    "html-differ": "^1.4.0",
+    "htmldiff-js": "^1.0.5",
     "jwt-decode": "^2.2.0",
     "moment-timezone": "^0.5.27",
     "ngx-quill": "^7.3.12",

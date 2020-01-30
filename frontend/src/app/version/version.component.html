@@ -1,6 +1,16 @@
 <div class="wrapper-version">
-    <div class="view">
-    </div>
-    <div class="versions">
+    <quill-editor  [modules]="modules" [readOnly]="true" #primary>
+    </quill-editor>
+    <div class="version-wrap">
+        <div class="versions">
+        </div>
+        <div class="changes">
+            <input type="checkbox" [(ngModel)]="showChanges" (change)="showDiff()"> Show Changes
+        </div>
     </div>
 </div>
+
+<quill-editor  [modules]="modules" [readOnly]="true" #secondary style="display: none;">
+</quill-editor>
+
+<!-- style="display:none;" -->

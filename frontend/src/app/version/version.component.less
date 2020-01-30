@@ -7,20 +7,34 @@
     width: 100%;
 }
 
+.version-wrap {
+    width: 25vw;
+    height: 96vh;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
 .versions {
     border: 1px solid black;
-    width: 20vw;
-    height: 95vh;
+    width: 100%;
+    height: 90%;
     overflow-y: scroll;
     overflow-x: none;
 }
 
-.view {
-    border: 1px solid black;
-    width: 80vw;
-    height: 95vh;
+.changes {
+    width: 100%;
+    height: 10%;
     padding: 20px;
-    overflow-y: scroll;
-    overflow-x: scroll;
+}
+
+quill-editor {
+    width: 75vw;
+    height: 96vh;
+}
+
+.ql-table-toggle{
+    display: none !important;
 }
 

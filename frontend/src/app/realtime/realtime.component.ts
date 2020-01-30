@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, ViewChild, Component, OnInit, OnDestroy } from '@angular/core';
-
 import { QuillEditorComponent } from 'ngx-quill';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import * as QuillNamespace from 'quill';
 const Quill: any = QuillNamespace;
+
 const Delta = Quill.import('delta');
+
 import * as QuillTableUI from 'quill-table-ui';
-import {InsTrack, DelTrack, Comment} from './track-comments';
+import {InsTrack, DelTrack, Comment} from '../track-comments';
 import QuillCursors from 'quill-cursors';
 import ImageResize from 'quill-image-resize';
 import {VerhistoryService} from '../verhistory.service';
@@ -329,42 +330,29 @@ export class RealtimeComponent  implements OnInit, OnDestroy {
     if($event.source !== 'user') {
       return;
     }
-    // console.log($event.delta);
-    // let flag=0, length=0, range = this.editor.quillEditor.getSelection();
-    // const authorFormat: any = {cid: this.chance.guid(), uid: this.id, name: this.name, cls: `user-${this.colorid}`}; // bug is here how to apply Attributor class to delta   
-    // if(this.trackChanges) {
-    //   const ops = [];
-    //   for(let i=0; i< $event.delta.ops.length; i++) {
-    //     let op = $event.delta.ops[i];
-    //     if(op.delete) {
-    //       return;
-    //     }
-    //     if(op.insert) {
-    //       op.attributes = op.attributes || {};
-    //       if(Object.keys(op.attributes).length === 0) {
-    //         flag=1;
-    //       } else if(op.attributes.instrack && parseInt(op.attributes.instrack.uid,10) !==  parseInt(this.id,10)) {
-    //         flag=1;
-    //       }
-    //       length = op.insert.length;
-    //     }
-    //   }
-    // }
-    
+    console.log($event.delta);
     this.doc.submitOp($event.delta, {source: 'quill'}); // Submit whatever was created
-    
-    // if(flag === 1){
-    //   let offset = range.index-1;
-    //   offset = offset<0 ? 0: offset;
-    //   let d = this.editor.quillEditor.formatText(offset, length, 'instrack', authorFormat, 'user'); //send the formatted delta
-    //   this.doc.submitOp(d, {source: 'quill'});
-    // }
-    // ++this.pageR;
-    // if ($event.delta.ops[0].delete && this.pageR === 1) {
-    //     this.editor.quillEditor.updateContents(this.doc.data);
-    //     return; // prevent from delete
-    // }
-    
+    let flag=0, length=0, range = this.editor.quillEditor.getSelection();
+    const authorFormat: any = {cid: this.chance.guid(), uid: this.id, name: this.name, cls: `user-${this.colorid}`}; // bug is here how to apply Attributor class to delta   
+    if(this.trackChanges) {
+      const ops = [];
+      for(let i=0; i< $event.delta.ops.length; i++) {
+        let op = $event.delta.ops[i];
+        if(op.delete) {
+          return;
+        }
+        if(op.insert) {
+          op.attributes = op.attributes || {};
+          if(Object.keys(op.attributes).length === 0 || op.attributes.instrack && parseInt(op.attributes.instrack.uid,10) !==  parseInt(this.id,10)) {
+            let offset = range.index-1;
+            length = op.insert.length;
+            offset = offset<0 ? 0: offset;
+            let d = this.editor.quillEditor.formatText(offset, length, 'instrack', authorFormat, 'user'); //send the formatted delta
+            this.doc.submitOp(d, {source: 'quill'});
+          }
+        }
+      }
+    }
   }
 
   selectionUpdate($event) { // fired when selection changes
